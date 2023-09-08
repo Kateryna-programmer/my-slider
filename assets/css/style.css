@@ -217,13 +217,6 @@ html {
   text-shadow: 1px -1px 5px #000000;
 }
 
-.fa-play-circle,
-.fa-circle-pause {
-  color: #ffffff;
-
-  font-size: 70px;
-}
-
 .carousel {
   position: relative;
 }
@@ -276,8 +269,7 @@ html {
 }
 
 .control-prev,
-.control-next,
-.control-pause {
+.control-next {
   position: absolute;
   z-index: 1;
   top: 50%;
@@ -298,36 +290,27 @@ html {
           transform: translateY(-50%);
 }
 
-.control-pause {
-  left: 50%;
+.pause-play {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 
-  -webkit-box-align: end;
-  align-items: flex-end;
-  -ms-flex-align: end;
-  -ms-flex-item-align: end;
-  align-self: flex-end;
+  padding-top: 10px;
 
-  width: 100%;
-  height: 90%;
-  padding: 50px;
-
-  -webkit-transition: opacity 0.25s ease-out;
-          transition: opacity 0.25s ease-out;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  gap: 20px;
 }
 
 .control-pause {
-  opacity: 0;
+  cursor: pointer;
 }
+.control-pause:hover svg {
+  -webkit-transition: 0.5s linear;
+          transition: 0.5s linear;
 
-.control-pause:hover,
-.control-pause:focus {
-  -webkit-transition: opacity 0.8s ease-in 0.5s;
-          transition: opacity 0.8s ease-in 0.5s;
-
-  opacity: 1;
+  color: #200985 !important;
 }
 
 .control-prev {

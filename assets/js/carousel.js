@@ -21,7 +21,8 @@ class Carousel {
     this.CODE_ARROW_LEFT = 'ArrowLeft';
     this.CODE_ARROW_RIGHT = 'ArrowRight';
     this.CODE_SPACE = 'Space';
-    this.FA_PAUSE = '<i class="far fa-pause-circle"></i>';
+    this.FA_PAUSE =
+      '<i class="far fa-pause-circle" style="font-size:70px; color:white"></i>';
     this.FA_PLAY =
       '<i class="far fa-play-circle" style="font-size:70px; color:white"></i>';
     this.FA_PREV =
@@ -31,19 +32,24 @@ class Carousel {
     this.currentSlide = 0;
   }
   _initControls() {
-    const controls = document.createElement('div');
-    controls.setAttribute('id', 'controls-container');
+    let controls = document.createElement('div');
+    const PREV = `<span id="prev-btn" class="control-prev">${this.FA_PREV}</span>`;
+    const NEXT = `<span id="next-btn" class="control-next">${this.FA_NEXT}</span>`;
     controls.setAttribute('class', 'controls');
+    controls.innerHTML = PREV + NEXT;
+    this.container.append(controls);
+    this.nextBtn = this.container.querySelector('#next-btn');
+    this.prevBtn = this.container.querySelector('#prev-btn');
+  }
+  _initPauseAndPlay() {
+    let pausePlay = document.createElement('div');
     const PAUSE = `<span id="pause-btn" class="control-pause">${
       this.isPlaying ? this.FA_PAUSE : this.FA_PLAY
     }</span>`;
-    const PREV = `<span id="prev-btn" class="control-prev">${this.FA_PREV}</span>`;
-    const NEXT = `<span id="next-btn" class="control-next">${this.FA_NEXT}</span>`;
-    controls.innerHTML = PAUSE + PREV + NEXT;
-    this.container.append(controls);
-    this.pauseBtn = this.container.querySelector('#pause-btn');
-    this.prevBtn = this.container.querySelector('#prev-btn');
-    this.nextBtn = this.container.querySelector('#next-btn');
+    pausePlay.setAttribute('class', 'pause-play');
+    pausePlay.innerHTML = PAUSE;
+    this.container.insertAdjacentElement('afterEnd', pausePlay);
+    this.pauseBtn = pausePlay.querySelector('#pause-btn');
   }
 
   _initIndicators() {
@@ -55,7 +61,10 @@ class Carousel {
     for (let i = 0; i < this.SLIDES_COUNT; i++) {
       const indicator = document.createElement('div');
 
-      indicator.setAttribute('class', i ? 'indicator' : 'indicator active');
+      indicator.setAttribute(
+        'class',
+        i === 0 ? 'indicator active' : 'indicator'
+      );
       indicator.dataset.slideTo = `${i}`;
       indicators.append(indicator);
     }
@@ -149,6 +158,7 @@ class Carousel {
   init() {
     this._initProps();
     this._initControls();
+    this._initPauseAndPlay();
     this._initIndicators();
     this._initListeners();
     this._timer();
